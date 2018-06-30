@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct record
+typedef struct class
 {
     char name[20];
     int numberOfSessionsPresent;
     float attendanceRate;
     int status;
 
-    //TO integrate with darren
+    //TODO: integrate with darren
     char grade;
-    float percentage;
+    float mark;
 }
 
 int main(void)
@@ -22,6 +22,8 @@ int main(void)
     int numberOfSessionsPresent  = 0;
     float attendanceRate         = 0.0;
     int numberOfStudentsDebarred = 0;
+    int presenceChecker = 0;
+
 
     //INPUT NUMBER OF STUDENTS, SESSIONS
     printf("Welcome to the Attendance Calculator");
@@ -29,7 +31,7 @@ int main(void)
     scanf("%d", &numberOfStudents);
 
     //INITIALISING STRUCTURES FOR STUDENTS
-    struct record student[numberOfStudents];
+    struct class student[numberOfStudents];
 
     printf("There are %d student(s) in the class\n", numberOfStudents);
 
@@ -48,19 +50,18 @@ int main(void)
         printf("\nEnter the name of Student %d:", z+1);
 
         fflush(stdin);
-
   
         gets(student[z].name);
 
         //to check length of name
 
-        /*b = strlen(student[z].name);
+        b = strlen(student[z].name);
 
-        //y = b++;
+        y = b++;
 
         //adding a character to fix memory dump
 
-        student[z].name[y] = '\0';*/
+        student[z].name[y] = '\0';
 
         z++;
     }
@@ -77,25 +78,29 @@ int main(void)
     printf("How many lesson(s) do you have for your module in the term:");
     
     scanf("%d", &numberOfSessions);
+
     printf("You have %d lessons", numberOfSessions);
+
     printf("\nIf the student is present, enter 1. Else, enter 0.");
+
     //CHECK for 0 sessions
+
     if(numberOfSessions == 0)
     {
         printf("\nERROR: 0 Lessons entered\n");
+
         printf("\nPlease try again");
     }
 
-    int presenceChecker = 0;
 
     for(int c = 0; c != numberOfStudents; c++)
     {
         student[c].numberOfSessionsPresent = 0;
-          for(int d = 1; d != numberOfSessions + 1; d++)
-          {
+
+        for(int d = 1; d != numberOfSessions + 1; d++)
+        {
 
            printf("\nIs %s present in Session %d:", student[c].name, d);
-
 
            scanf("%d", &presenceChecker);
 
@@ -107,6 +112,9 @@ int main(void)
         }
     }
 
+
+    //PROCESS for attendance rate
+
     for(int e = 0; e!= numberOfStudents; e++)
     {
         student[e].attendanceRate = 100.0 * (((float)student[e].numberOfSessionsPresent)/(numberOfSessions));
@@ -114,6 +122,7 @@ int main(void)
         if(student[e].attendanceRate < 80.00)
         {
             student[e].status = 1;
+
             numberOfStudentsDebarred++;
         }
         else
@@ -121,6 +130,42 @@ int main(void)
             student[e].status = 0;
         }
     }
+
+
+    printf("\nNow, we will proceed to the grade recorder.");
+    for (int n = 0;n != numberOfStudents;n++)
+    {
+
+        printf("Enter the mark for %s: ", student[n].name);
+        scanf(" %f",&student[n].mark);
+        
+
+        if (student[n].mark >= 80)
+            student[n].grade='A';
+
+        else if (student[n].mark >= 70)
+            student[n].grade='B';
+
+        else if (student[n].mark >= 60)
+            student[n].grade='C';
+
+        else if (student[n].mark >= 50)
+            student[n].grade='D';
+
+        else 
+            student[n].grade='F';
+
+        
+        sum   = sum + student[n].mark;
+
+        if (student[n].mark > highest)
+        {
+            highest = student[n].mark;
+        }
+    }
+
+
+    //OUTPUT
 
     printf("\n\n%-10s%20s%24s\n", "Name", "AttendanceRate","Status");
 
@@ -140,6 +185,7 @@ int main(void)
     if(numberOfStudentsDebarred > 0.001)
     {
         printf("\nThere are %d student(s) who are debarred due to poor attendance.\n", numberOfStudentsDebarred);
+
         printf("\nLIST OF STUDENTS WHO ARE DEBARRED\n");
         for(int g = 0; g != numberOfStudents ; g++)
         {

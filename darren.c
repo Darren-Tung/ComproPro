@@ -3,8 +3,12 @@
   calculates the average mark and grade
 */
 
+
+//dont include stuff just because it sounds fancy
 #include<string.h>
 #include<stdio.h>
+#include<stdlib.h>
+
 #define MAXLEN 30
 #define MAXSIZE 20
 
@@ -16,28 +20,36 @@ void main(void)
 
     float marks[20];
 
-    int numData = 0;
+    int count = 0;
 
-    float average,sum,numberOfNames;
+    int numberOfNames;
 
-    float highest = 0;
+    float average, sum = 0.0;
 
-    char grade;
+    float highest = 0.0;
+
+
     
     printf(" What module do you want to compare? ");
-    scanf("%s",&subject);
+
     fflush(stdin);
+
+    gets(subject);
+
+    //scanf("%s",&subject);
+
+    
     printf("\n\n -------------- For %s --------------\n\n",subject);
 
     printf(" How many students do you want to compare [1 to %d] ? ",MAXSIZE);
-    scanf(" %f",&numberOfNames);
 
-    sum     = 0.0;
-    numData = 0;
+    fflush(stdin);
+    scanf(" %f",&numberOfNames);
     
-    for (int n=0;n < numberOfNames;n++)
+    for (int n = 0;n != numberOfNames;n++)
     {
         printf(" Student %d\n",n+1);
+
         printf("     Enter name: ");
         gets( name[n] );
 
@@ -45,19 +57,19 @@ void main(void)
         scanf(" %f",&marks[n]);
         
 
-        if (marks[n]>=80)
+        if (marks[n] >= 80)
             grade[n]='A';
-        else if (marks[n]>=70)
+        else if (marks[n] >= 70)
             grade[n]='B';
-        else if (marks[n]>=60)
+        else if (marks[n] >= 60)
             grade[n]='C';
-        else if (marks[n]>=50)
+        else if (marks[n] >= 50)
             grade[n]='D';
         else 
             grade[n]='F';
 
-        numData = numData+1;
-        sum     = sum+marks[n];
+        count = count + 1;
+        sum   = sum + marks[n];
 
         if (marks[n] > highest)
         {
@@ -65,15 +77,16 @@ void main(void)
         }
     }
 
-    average = sum/numData;
+    average = sum/count;
 
-    if (average>=80)
+    //OUTPUT:Average Grade
+    if (average >= 80)
         grade = 'A';
-    else if (average>=70)
+    else if (average >= 70)
         grade = 'B';
-    else if (average>=60)
+    else if (average >= 60)
         grade = 'C';
-    else if (average>=50)
+    else if (average >= 50)
         grade = 'D';
     else
         grade = 'F';
@@ -86,8 +99,11 @@ void main(void)
     
     for (n = 0 ; n < numberOfNames ; n++)
         printf(" %-15s %4.2f %6c\n",name[n],marks[n],grade[n]);
+
     printf("\n The average marks is %.2f",average);
+    
     printf("\n The average grade is %c",grade);
+
     printf("\n The highest mark is %.2f",highest);
     printf("\n **********\n");
    
