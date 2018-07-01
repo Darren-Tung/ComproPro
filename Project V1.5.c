@@ -31,18 +31,26 @@ int main(void)
     char averageGrade;
     int choice    = 3;
     float average = 0.0;
+    char nameOfClass[20];
 
 
     //INPUT NUMBER OF STUDENTS, SESSIONS
-    printf("Welcome to the Attendance Calculator");
+    printf("Welcome to the Student Recorder");
     printf("Menu");
     printf("\n0.Exit");
     printf("\n1.Attendance Recorder");
     printf("\n2.Grade Recorder"); 
+    printf("\nEnter your choice:");
     scanf("%d", &choice);
 
     while(choice != 0)
     {
+
+    
+    printf("What is the name of the class you are recording for?");
+    fflush(stdin);
+    gets(nameOfClass);
+
     //input students
     printf("How many students do you have in your class?");                          
     scanf("%d", &numberOfStudents);
@@ -146,6 +154,7 @@ int main(void)
             student[e].status = 0;
         }
     }
+    printf("\nFor the module %s",nameOfClass);
     printf("\n\n%-10s%20s%24s\n", "Name", "AttendanceRate","Status");
 
 
@@ -235,22 +244,24 @@ int main(void)
         averageGrade = 'D';
     else
         averageGrade = 'F';
-
-    printf("\n The average marks is %.2f",average);
     
-    printf("\n The average grade is %c",averageGrade);
+    printf("\nFor the module %s", nameOfClass);
+    printf("\nThe average marks is %.2f",average);
+    
+    printf("\nThe average grade is %c",averageGrade);
 
-    printf("\n The highest mark is %.2f",highest);
+    printf("\nThe highest mark is %.2f",highest);
 
-    printf("\n **********\n");
+    printf("\n**********\n");
     break;
     
     }
 
     //OUTPUT
 
+   
     }
-    printf("Thank you for using the Student Recorder\n");
+    printf("\nThank you for using this program :)");
 }
 
 
